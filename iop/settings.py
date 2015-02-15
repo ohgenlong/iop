@@ -29,7 +29,7 @@ TEMPLATE_DIRS = (
     #os.path.join(SITE_ROOT,'hosts'),
     os.path.join(SITE_ROOT,'templates'),
     os.path.join(SITE_ROOT,'pages'),
-    'C:/IDE/workspace/iop/apptest/templates',
+    #'C:/IDE/workspace/iop/apptest/templates',
     #"/var/www/TriAquae/rrdtool_png",
 )
 

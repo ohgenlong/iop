@@ -20,11 +20,11 @@ urlpatterns = patterns('',
     #url(r'^/$',login),
 )
 
-urlpatterns += patterns('apptest.views',
-    url(r'v1/$','view_1'),
-    url(r'v2/$','view_2'),                   
+#urlpatterns += patterns('apptest.views',
+#    url(r'v1/$','view_1'),
+#    url(r'v2/$','view_2'),                   
                         
-)
+#)
 
 urlpatterns += patterns('',
     url(r'^registerpage/$',register_page),

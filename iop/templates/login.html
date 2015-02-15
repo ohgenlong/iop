@@ -29,16 +29,20 @@
             <form action="/login_auth/" method="post">
                 <div class="body bg-gray">
                     <div class="form-group">
-                        <input type="text" name="userid" class="form-control" placeholder="User ID"/>
-
+                        <input type="text" name="username" class="form-control" placeholder="User ID"/>
                     </div>
+                    {{ form.errors.username }}
+                    
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
                     </div>
-                    {% if auth_tag == 'False' %}
-                    	<p>{{ auth_tag }}</p>
+                    <!--{% if password_is_wrong %}
+                    	<p>{{ password_is_wrong }}</p>
                         <p>Wrong auth!Please check your account and password!</p>
-                    {% endif %}          
+                        
+                    {% endif %} -->
+                    {{ form.errors.password }}
+                    {% if fail_reason %}<ul class="errorlist"><li>{{ fail_reason }}</li></ul>{% endif %}
                     <!--<div class="form-group">
                         <input type="checkbox" name="remember_me"/> Remember me
                     </div>-->
