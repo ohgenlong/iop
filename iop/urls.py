@@ -1,30 +1,35 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-#from django.conf.urls.defaults import *
-from django.conf import settings
+from iop.views import *
+from iop.views1 import *
 
-urlpatterns = patterns('app01.views',
+
+urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'iop.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
+
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^index/', 'index'),
-    url(r'^report/','report'),
-    url(r'^cpk/','catch_package'),
-    url(r'^pkg/','package'),
+    url(r'^login/$',login_func),
+    url(r'^index/$',index),
+    url(r'^time/$',current_datetime),
+    url(r'^time/plus/(\d{1,2})',hours_ahead),
+    url(r'^meta/$',display_meta),
+    
+    
+    #url(r'^/$',login),
+)
+
+urlpatterns += patterns('apptest.views',
+    url(r'v1/$','view_1'),
+    url(r'v2/$','view_2'),                   
+                        
+)
+
+urlpatterns += patterns('',
+    url(r'^registerpage/$',register_page),
+    url(r'^login_auth/$',login_auth),
 
 )
 
-urlpatterns += patterns('library.views',
-    url(r'^search/$','search'),
-    url(r'^contact/$','contact'),
-                       
-)
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-        url(r'^debuginfo/$','library.views.contact')
-    
-    
-    
-    )
