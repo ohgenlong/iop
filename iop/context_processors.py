@@ -10,5 +10,6 @@ def custom_proc(request):
         'APP': 'My app',
         'USER': request.user,
         'IP_ADDRESS': request.META['REMOTE_ADDR'],
-        'meta_data': request.META.items()
+        'meta_data': request.META.items(),
+        'username': request.session.get('username','nobody'),
     }

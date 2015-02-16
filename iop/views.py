@@ -11,16 +11,20 @@ from django.contrib.auth.decorators import login_required
 from django.template.context import RequestContext
 from .iop_forms import LoginForm
 
-@login_required()
-def index(request):
-    return render_to_response('index.html')
 
-#### Page return ####
 def login_func(request):
     return render_to_response('login.html')
 
 def register_page(request):
     return render_to_response('register.html')
+
+@login_required()
+def index(request):
+    return render_to_response('index.html',context_instance=RequestContext(request))
+
+@login_required()
+def task_dispath(request):
+    return render_to_response('task_dispath.html',context_instance=RequestContext(request))
 
 ##### Auth #####
 def login_auth(request):
@@ -33,13 +37,13 @@ def login_auth(request):
             username = request.POST.get('username', '')
             password = request.POST.get('password', '')
             user = auth.authenticate(username=username, password=password)
-            
-            print user
-            
+        
             if user is not None: 
                 if user.is_active:
-                    #auth.login(request, user)
-                    return render_to_response("index.html",RequestContext(request))
+                    request.session['username'] = username
+                    auth.login(request, user)
+                    return HttpResponseRedirect("/index/")
+                    #return render_to_response("index.html",RequestContext(request))
                 else:
                     return render_to_response("login.html",RequestContext(request,{'form': form,'fail_reason':'Password is invalid!'}))
             else:
@@ -51,9 +55,9 @@ def login_auth(request):
         
         
         
-def logout(request):
-    #auth.logout(request)
-    return HttpResponseRedirect("/account/loggedout/")
+def logout_func(request):
+    auth.logout(request)
+    return HttpResponseRedirect("/login/")
 
 def registeruser(request):
     pass
