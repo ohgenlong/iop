@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 from django.template.context import RequestContext
-from website.form_sets import LoginForm
+from website.form_sets import LoginForm,TaskForm
 
 
 def login_func(request):
@@ -20,17 +20,24 @@ def register_page(request):
 
 @login_required()
 def index(request):
-    return render_to_response('index.html',context_instance=RequestContext(request))
+    return render_to_response('index.html',RequestContext(request))
 
 @login_required()
 def task_result(request):
-    return render_to_response('task_result.html',context_instance=RequestContext(request))
+    return render_to_response('task_result.html',RequestContext(request))
 
 @login_required()
 def task_config(request):
+    if request.method == 'GET': 
+        form = TaskForm()
+        return render_to_response('task_config.html', RequestContext(request, {'form': form,}))
+    elif request.method == 'POST':
+        form = TaskForm(request.POST)
+        
     
-    
-    return render_to_response('task_config.html',context_instance=RequestContext(request))
+        #return render_to_response('task_config.html',locals(),context_instance=RequestContext(request))
+        return render_to_response('task_config.html', RequestContext(request, {'form': form,}))
+        
 
 ##### Auth #####
 def login_auth(request):
