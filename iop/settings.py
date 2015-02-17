@@ -27,8 +27,10 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     #os.path.join(SITE_ROOT,'code'),
     #os.path.join(SITE_ROOT,'hosts'),
-    os.path.join(SITE_ROOT,'templates'),
-    os.path.join(SITE_ROOT,'pages'),
+    #os.path.join(SITE_ROOT,'templates'),
+    os.path.join(BASE_DIR,'templates'),
+    #os.path.join(SITE_ROOT,'pages'),
+    os.path.join(BASE_DIR,'pages'),
     #'C:/IDE/workspace/iop/apptest/templates',
     #"/var/www/TriAquae/rrdtool_png",
 )
@@ -39,7 +41,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     #'django.core.context_processors.i18n',
     'django.core.context_processors.request',
     #'C:/IDE/workspace/iop/iop/context_processors.py',
-    'iop.context_processors.custom_proc',
+    'website.context_processors.custom_proc',
     
 )
 
@@ -66,8 +68,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app01',
-    #'apptest',
+    'website',
+    
     
 )
 
@@ -118,7 +120,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(SITE_ROOT,'static')
+#STATIC_ROOT = os.path.join(SITE_ROOT,'static')
+
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
