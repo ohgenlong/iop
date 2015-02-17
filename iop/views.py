@@ -23,8 +23,12 @@ def index(request):
     return render_to_response('index.html',context_instance=RequestContext(request))
 
 @login_required()
-def task_dispath(request):
-    return render_to_response('task_dispath.html',context_instance=RequestContext(request))
+def task_result(request):
+    return render_to_response('task_result.html',context_instance=RequestContext(request))
+
+@login_required()
+def task_config(request):
+    return render_to_response('task_config.html',context_instance=RequestContext(request))
 
 ##### Auth #####
 def login_auth(request):

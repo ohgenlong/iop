@@ -16,8 +16,8 @@ urlpatterns = patterns('',
     #url(r'^time/$',current_datetime),
     #url(r'^time/plus/(\d{1,2})',hours_ahead),
     #url(r'^meta/$',display_meta),
-    url(r'^taskdispath/$',task_dispath),
-    
+    url(r'^taskresult/$',task_result),
+    url(r'^taskconfig/$',task_config),
     
     #url(r'^/$',login),
 )
