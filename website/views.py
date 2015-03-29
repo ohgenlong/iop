@@ -33,9 +33,6 @@ def task_config(request):
         return render_to_response('task_config.html', RequestContext(request, {'form': form,}))
     elif request.method == 'POST':
         form = TaskForm(request.POST)
-        
-    
-        #return render_to_response('task_config.html',locals(),context_instance=RequestContext(request))
         return render_to_response('task_config.html', RequestContext(request, {'form': form,}))
         
 
@@ -56,7 +53,7 @@ def login_auth(request):
                     request.session['username'] = username
                     auth.login(request, user)
                     return HttpResponseRedirect("/index/")
-                    #return render_to_response("index.html",RequestContext(request))
+                    
                 else:
                     return render_to_response("login.html",RequestContext(request,{'form': form,'fail_reason':'Password is invalid!'}))
             else:

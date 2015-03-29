@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 #from website.views import *
-from iop.views1 import *
+#from iop.views1 import *
 
 
 urlpatterns = patterns('',

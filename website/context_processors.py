@@ -2,7 +2,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 
-#class custom_proc_group(request):
 
 def custom_proc(request):
     "A context processor that provides 'app', 'user' and 'ip_address'."
