@@ -1,0 +1,50 @@
+{% extends "layouts/base.html" %}
+{% block page_name %}Task_config{% endblock %}
+{% block page_name_nav %}Task_config{% endblock %}
+
+{% block page-content %}
+
+
+                <!-- Main content -->
+                <section class="content">
+                <form action="/taskconfig/" method="post">
+	                <div class="col-xs-12">
+	                	<div class="box box-solid">
+	                		<div class="box-header">
+	                			<h3 class="box-title">Configuration</h3>
+	                		</div>
+	                		<div class="box-body">
+	                			<div class="row">
+	                				<div class="col-sm-6">
+	                					<div class="form-group">
+	                					<label>Task Name:</label>
+	                						{{form.name}}
+	                						<span style="color:red">{{form.name.errors}}</span>
+	                					</div>
+	                					
+	                					<div class="form-group">
+	                					<label>Task Description:</label> 
+	                						{{form.description}}
+	                						<span style="color:red">{{form.description.errors}}</span>
+	                					</div>
+	                						                					
+	                				</div>
+	                				<div class="col-sm-6">
+	                					<div class="form-group">
+	                					<label>Execute Hosts:</label> 
+	                						{{form.hosts}}
+	                						<span style="color:red">{{form.hosts.errors}}</span>
+	                					</div>
+	                				</div>                			
+	                			</div>
+	                		</div>
+	                		<div class="box-footer">
+	                			<button type="submit" class="btn btn-primary">Submit</button>
+	                		</div>
+	                	</div>
+	                </div>
+	            </form>
+                </section><!-- /.content -->
+
+
+{% endblock %}

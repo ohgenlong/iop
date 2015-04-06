@@ -1,0 +1,88 @@
+{% extends "layouts/base.html" %}
+{% block page_name %}{{ page_name }}{% endblock %}
+{% block page_name_nav %}{{ page_name }}{% endblock %}
+
+{% block page-content %}
+			<section class="content">
+                   <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box box-solid">
+                                <div class="box-header">
+                                    <h3 class="box-title ">{{ page_name }} List</h3>
+                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#SupplierModal">Add New</button>
+                                </div><!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding">
+                                    {% if all_supplier %}
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Supplier</th>
+                                                <th>Seller</th>
+                                                <th>Address</th>
+                                                <th>Contact</th>
+                                                <th>E-mail</th>
+                                                <th>Edit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for supplier in all_supplier %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ supplier.name }}</td>
+                                                <td>{{ supplier.seller }}</td>
+                                                <td>{{ supplier.address }}</td>
+                                                <td>{{ supplier.phone }}</td>
+                                                <td>{{ supplier.email }}</td>
+                                                <td><a href="{% url 'inventory:supplier_manage' supplier.id %}" class="btn btn-primary btn-xs">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% endif %}
+                                    
+                                    
+                                    <!-- Add Supplier -->
+                                    <div class="modal fade" id="SupplierModal" tabindex="-1" role="dialog"  aria-labelledby="SupplierModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">New {{page_name}}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'inventory:supplier_list' %}" method="post" role="form">
+                                                    {% csrf_token %}
+                                                        <div class="box-body">
+                                                            {% for field in form.visible_fields %}
+                                                            <div class="form-group">
+                                                                {{ field.label_tag }}
+                                                                {{ field }}
+                                                                {{ field.errors }}
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="box-footer">
+                                                            <button type="submit" class="btn btn-primary btn-sm" name="operate" value="add">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {% if form.errors %}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#SupplierModal').modal('show');
+                                        });
+                                    </script>
+                                    {% endif %}
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+			</section>
+
+
+{% endblock %}
