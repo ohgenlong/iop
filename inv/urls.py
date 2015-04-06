@@ -4,21 +4,21 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns('',
    # Supplier url
-   url(r'^supplier/$',
+    url(r'^supplier/$',
        'inv.views.supplier_manage', name='supplier_list'),
                        
     url(r'^supplier/(?P<supplier_id>\d+)/$',
         'inv.views.supplier_manage', name='supplier_manage'),
    
    # Server url                  
-#    url(r'^server_part/$', 
-#        'inv.views.server_part_manage',name='server_part_list'),
-#                        
-#    url(r'^server_part/(?P<part_name>\w+)/$',
-#        'inv.views.server_part_manage', name='server_part_type_list'),
-#                        
-#    url(r'^server_part/(?P<part_name>\w+)/(?P<type_id>\d+)/$',
-#        'inv.views.server_part_manage', name='server_part_manage'),
+    url(r'^server_part/$', 
+        'inv.views.server_part_manage',name='server_part_list'),
+                        
+    url(r'^server_part/(?P<part_name>\w+)/$',
+        'inv.views.server_part_manage', name='server_part_type_list'),
+                        
+    url(r'^server_part/(?P<part_name>\w+)/(?P<type_id>\d+)/$',
+        'inv.views.server_part_manage', name='server_part_manage'),
 #    
 #    # Template url                                    
 #    url(r'^template/$',

@@ -1,0 +1,148 @@
+{% extends "layouts/base.html" %}
+{% block page_name %}{{ page_name }}{% endblock %}
+{% block page_name_nav %}{{ page_name }}{% endblock %}
+{% block page-content %}
+	<section class="content">
+                    <div class="row">
+                        <div id="server_part_list"></div>
+                        <script>
+                            $(document).ready(function() {
+                                $('#server_part_list').load('{% url 'inventory:server_part_list'  %}' + ' .content');
+                            });
+                        </script>
+
+                        <div class="col-xs-12">
+                            <div class="box box-solid">
+                                <div class="box-header">
+                                    <h3 class="box-title">{{ page_name }} List</h3>
+                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#ServerPartTypeModal">Add {{ page_name }}</button>
+                                </div><!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding">
+                                    {% if all_type %}
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                {% if part_name == 'cpu' %}
+                                                <th>Model</th>
+                                                <th>Manufacturer</th>
+                                                <th>Core</th>
+                                                <th>Frequency(MHz)</th>
+                                                <th>3LCache(MB)</th>
+                                                {% elif part_name == 'memory' %}
+                                                <th>Mem_Type</th>
+                                                <th>Speed(MHz)</th>
+                                                <th>Size(MB)</th>
+                                                {% elif part_name == 'hd'%}
+                                                <th>Model</th>
+                                                <th>Manufacturer</th>
+                                                <th>Type</th>
+                                                <th>Speed</th>
+                                                <th>Size</th>
+                                                <th>Capacity(GB)</th>
+                                                {% elif part_name == 'raidlevel' %}
+                                                <th>Level</th>
+                                                <th>Min_HDs</th>
+                                                <th>Max_HDs</th>
+                                                {% elif part_name == 'raidcard' %}
+                                                <th>Model</th>
+                                                <th>Manufacturer</th>
+                                                <th>Cache(MB)</th>
+                                                <th>Bettery</th>
+                                                <th>Raid Level Support </th>
+                                                {% elif part_name == 'nic'%}
+                                                <th>Model</th>
+                                                <th>Manufacturer</th>
+                                                <th>Max Speed(Mbps)</th>
+                                                <th>Board</th>
+                                                {% endif %}
+                                                <th>Remark</th>
+                                                <th>Management</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for each_type in all_type %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                {% if part_name == 'cpu' %}
+                                                <td>{{ each_type.name }}</td>
+                                                <td>{{ each_type.get_manufacturer_display }}</td>
+                                                <td>{{ each_type.cores }}</td>
+                                                <td>{{ each_type.speed }}</td>
+                                                <td>{{ each_type.l3cache }}</td>
+                                                {% elif part_name == 'memory' %}
+                                                <td>{{ each_type.get_memory_type_display }}</td>
+                                                <td>{{ each_type.speed }}</td>
+                                                <td>{{ each_type.size }}</td>
+                                                {% elif part_name == 'hd' %}
+                                                <td>{{ each_type.name }}</td>
+                                                <td>{{ each_type.manufacturer }}</td>
+                                                <td>{{ each_type.get_hd_type_display }}</td>
+                                                <td>{{ each_type.speed }}</td>
+                                                <td>{{ each_type.size }}</td>
+                                                <td>{{ each_type.capacity }}</td>
+                                                {% elif part_name == 'raidlevel' %}
+                                                <td>{{ each_type.name }}</td>
+                                                <td>{{ each_type.min_hds }}</td>
+                                                <td>{{ each_type.max_hds }}</td>
+                                                {% elif part_name == 'raidcard' %}
+                                                <td>{{ each_type.name }}</td>
+                                                <td>{{ each_type.manufacturer }}</td>
+                                                <td>{{ each_type.cache }}</td>
+                                                <td>{{ each_type.battery }}</td>
+                                                <td>{{ each_type.support_raids.all|join:"," }}</td>
+                                                {% elif part_name == 'nic' %}
+                                                <td>{{ each_type.name }}</td>
+                                                <td>{{ each_type.manufacturer }}</td>
+                                                <td>{{ each_type.get_speed_display }}</td>
+                                                <td>{{ each_type.eom }}</td>
+                                                {% endif %}
+                                                <td>{{ each_type.notes }}</td>
+                                                <td><a href="{% url 'inventory:server_part_manage' part_name each_type.id %}" class="btn btn-primary btn-xs">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% endif %}
+                                    <!-- Add Server Part Type -->
+                                    <div class="modal fade" id="ServerPartTypeModal" tabindex="-1" role="dialog"  aria-labelledby="ServerPartTypeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">Edit {{ page_name }}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'inventory:server_part_type_list' part_name %}" method="post" role="form">
+                                                    {% csrf_token %}
+                                                        <div class="box-body">
+                                                            {% for field in form.visible_fields %}
+                                                            <div class="form-group">
+                                                                {{ field.label_tag }}
+                                                                {{ field }}
+                                                                {{ field.errors }}
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="box-footer">
+                                                            <button type="submit" class="btn btn-primary btn-sm" name="operate" value="add">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if form.errors %}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#ServerPartTypeModal').modal('show');
+                                        });
+                                    </script>
+                                    {% endif %}
+
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+	</section>
+{% endblock %}

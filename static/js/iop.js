@@ -8,7 +8,6 @@ function Readydelete(){
         text.appendChild(del)
         text.submit()
     }else{
-
-        console.log("Stop")
+    	console.log("Stop")
     }
 }
