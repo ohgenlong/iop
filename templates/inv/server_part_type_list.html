@@ -2,12 +2,13 @@
 {% block page_name %}{{ page_name }}{% endblock %}
 {% block page_name_nav %}{{ page_name }}{% endblock %}
 {% block page-content %}
+
 	<section class="content">
                     <div class="row">
                         <div id="server_part_list"></div>
-                        <script>
+                        <script type="text/javascript">
                             $(document).ready(function() {
-                                $('#server_part_list').load('{% url 'inventory:server_part_list'  %}' + ' .content');
+                                $('#server_part_list').load('{% url 'inventory:server_part_list'  %}' + ' .content'); 	
                             });
                         </script>
 

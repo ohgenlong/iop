@@ -1,0 +1,70 @@
+{% extends "layouts/base.html" %}
+
+{% block page_name %}{{ page_name }}{% endblock %}
+{% block page_name_nav %}{{ page_name }}{% endblock %}
+{% block page-content %}
+	<section class="content">
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12">
+                            <div class="box" id="io_list">
+                                <div class="box-header">
+                                    <h3 class="box-title">{{ page_name }}</h3>
+                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#{{io_type}}Modal">Add {{ page_name }}</button>
+                                </div>
+                                <div class="box-body table-responsive no-padding">
+                                    {% if all_io %}
+                                    <table class="table table-bordered table-striped">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Model</th>
+                                            <th>Managerment</th>
+                                        </tr>
+                                        {% for each_io in all_io %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ each_io }}</td>
+                                            <td>
+                                                <form name="ManageForm" action="{% url 'inventory:template_io_manage' template_type=template_type template_id=template_id io_type=io_type %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" value="{{ each_io.id }}" name="io_id" />
+                                                    <button type="submit" class="btn btn-danger btn-sm" name="operate" value="delete" onclick="Readydelete()">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </table>
+                                    {% endif %}
+                                    <!-- Add io device -->
+                                    <div class="modal fade" id="{{io_type}}Modal" tabindex="-1" role="dialog"  aria-labelledby="{{io_type}}ModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">Add {{page_name}}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'inventory:template_io_manage' template_type=template_type template_id=template_id io_type=io_type %}" method="post" role="form">
+                                                    {% csrf_token %}
+                                                        <div class="box-body">
+                                                            {% for field in form.visible_fields %}
+                                                            <div class="form-group">
+                                                                {{ field.label_tag }}
+                                                                {{ field }}
+                                                                {{ field.errors }}
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="box-footer">
+                                                            <button type="submit" class="btn btn-primary btn-sm" name="operate" value="add">Submit</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+	</section>                    
+{% endblock %}

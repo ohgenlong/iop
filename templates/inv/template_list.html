@@ -1,0 +1,31 @@
+{% extends "layouts/base.html" %}
+
+{% block page_name %}{{ page_name }}{% endblock %}
+{% block page_name_nav %}{{ page_name }}{% endblock %}
+{% block page-content %}
+	<section class="content">
+        <div class="row">
+            {% for each_type in all_type %}
+            <div class="col-lg-6 col-xs-6">
+                <div class="small-box {{ each_type.color }}">
+                    <div class="inner">
+                        <h3>
+                            {{ each_type.number }}<sup style="font-size: 20px"> items</sup>
+                        </h3>
+                        <p>
+                            {{ each_type.name }}
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion {{ each_type.icon }}"></i>
+                    </div>
+                    <a href="{{ each_type.url }}" class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+	</section>
+{% endblock %}
+

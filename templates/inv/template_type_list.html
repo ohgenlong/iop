@@ -1,0 +1,102 @@
+{% extends "layouts/base.html" %}
+
+{% block page_name %}{{ page_name }}{% endblock %}
+{% block page_name_nav %}{{ page_name }}{% endblock %}
+{% block page-content %}
+	<section class="content">
+                    <div class="row">
+                        <div id="template_list"></div>
+                        <script>
+                            $(document).ready(function() {
+                                $('#template_list').load('{% url 'inventory:template_list'  %}' + ' .content');
+                            });
+                        </script>
+                        <div class="col-xs-12">
+                            <div class="box box-solid">
+                                <div class="box-header">
+                                    <h3 class="box-title">{{ page_name }} List</h3>
+                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#TemplateModal">Add {{ page_name }}</button>
+                                </div><!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding">
+                                    {% if all_template %}
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Template Name</th>
+                                                <th>Manufacturer</th>
+                                                <th>Height(U)</th>
+                                                <th>Supplier</th>
+                                                {% if template_type == 'server' %}
+                                                <th>CPU</th>
+                                                <th>Memory</th>
+                                                <th>Disk</th>
+                                                <th>Nic</th>
+                                                {% endif %}
+                                                <th>Remark</th>
+                                                <th>Management</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for template in all_template %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ template.name }}</td>
+                                                <td>{{ template.manufacturer }}</td>
+                                                <td>{{ template.height }}</td>
+                                                <td>{{ template.suppliers }}</td>
+                                                {% if template_type == 'server' %}
+                                                <td>{{ template.cpu }}</td>
+                                                <td>{{ template.memory }}</td>
+                                                <td>{{ template.hds }}</td>
+                                                <td>{{ template.nics }}</td>
+                                                {% endif %}
+                                                <td>{{ template.notes }}</td>
+                                                <td><a href="{% url 'inventory:template_manage' template_type template.id %}" class="btn btn-primary btn-xs">Edit</a></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% endif %}
+                                    <!-- Add Template -->
+                                    <div class="modal fade" id="TemplateModal" tabindex="-1" role="dialog"  aria-labelledby="TemplateModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">Edit {{page_name}}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form enctype="multipart/form-data" action="{% url 'inventory:template_type_list' template_type %}" method="post" role="form">
+                                                    {% csrf_token %}
+                                                        <div class="box-body">
+                                                            {% for field in form.visible_fields %}
+                                                            <div class="form-group">
+                                                                {{ field.label_tag }}
+                                                                {{ field }}
+                                                                {{ field.errors }}
+                                                            </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="box-footer">
+                                                            <button type="submit" class="btn btn-primary btn-sm" name="operate" value="add">Submit</button>
+                                                            <button type="submit" class="btn btn-primary btn-sm navbar-right" name="operate" value="add_and_manage_io">Add and Edit IO device</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if form.errors %}
+                                    <script>
+                                        $(document).ready(function() {
+                                            $('#TemplateModal').modal('show');
+                                        });
+                                    </script>
+                                    {% endif %}
+                                </div><!-- /.box-body -->
+                            </div><!-- /.box -->
+                        </div>
+                    </div>
+	</section>
+{% endblock %}

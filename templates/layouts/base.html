@@ -331,6 +331,7 @@
                                 
                                 <li><a href="{% url 'inventory:supplier_list' %}"><i class="fa fa-angle-double-right"></i>Supplier</a></li>
                                 <li><a href="{% url 'inventory:server_part_list'%}"><i class="fa fa-angle-double-right"></i>Server Parts</a></li>
+                                <li><a href="{% url 'inventory:template_list'%}"><i class="fa fa-angle-double-right"></i>Template Manage</a></li>
                             </ul>                        
                         </li> 
                         
@@ -443,7 +444,10 @@
                 <!-- /.sidebar -->
             </aside>
             <!--  {% endblock %} -->
-            
+	        <!-- jQuery 2.1.3 -->
+	        <script src="/static/js/jquery-2.1.3.min.js"></script>
+	        <!-- Bootstrap -->
+	        <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>	                       
 			
             <!-- Right side column. Contains the navbar and content of the page -->
             <aside class="right-side">
@@ -985,13 +989,15 @@
 
 
         <!-- jQuery 2.0.2 -->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script> -->
+        <!-- jQuery 2.1.3 -->
+        <script src="/static/js/jquery-2.1.3.min.js"></script>      
         <!-- jQuery UI 1.10.3 -->
         <script src="/static/js/jquery-ui-1.10.3.min.js" type="text/javascript"></script>
         <!-- Bootstrap -->
         <script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- Morris.js charts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
         <script src="/static/js/plugins/morris/morris.min.js" type="text/javascript"></script>
         <!-- Sparkline -->
         <script src="/static/js/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
@@ -1008,6 +1014,7 @@
         <script src="/static/js/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
         <!-- iCheck -->
         <script src="/static/js/plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+        <!-- Self defined js -->
         <script src="/static/js/iop.js" type="text/javascript"></script>
 
         <!-- AdminLTE App -->

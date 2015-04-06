@@ -1,0 +1,47 @@
+{% extends "layouts/base.html" %}
+
+{% block page_name %}{{ page_name }}{% endblock %}
+{% block page_name_nav %}{{ page_name }}{% endblock %}
+{% block page-content %}
+	<section class="content">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- 基本信息 -->
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <h3 class="box-title"> Base Info</h3>
+                                </div>
+                                <form name="ManageForm" action="." method="post" role="form" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="box-body">
+                                        {% for field in form.visible_fields %}
+                                        <div class="form-group">
+                                            {{ field.label_tag }}
+                                            {{ field }}
+                                            {{ field.errors }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="box-footer">
+                                        <button type="button" class="btn btn-danger" name="operate" value="delete" onClick="Readydelete()">Delete</button>
+                                        <button type="submit" class="btn btn-primary navbar-right" name="operate" value="update">Update</button>
+                                    </div>
+                                </form>
+                            </div><!-- /.box -->
+                        </div>
+                        <!-- IO设备信息 -->
+                        {% if template_io_map %}
+                        {% for io_type in template_io_map %}
+                        <div class="col-xs-6">
+                            <div id="io_{{ io_type }}"></div>
+                            <script>
+                            $(document).ready(function(){
+                                 $('#io_{{ io_type }}').load('{% url 'inventory:template_io_manage' template_type=template_type template_id=template_id io_type=io_type %}' + ' #io_list');
+                            });
+                            </script>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+	</section>
+{% endblock %}
