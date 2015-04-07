@@ -287,6 +287,7 @@ def _get_templates(template_type, ret_format='list'):
 
         all_template['list'].append(template_info)
         all_template['dict'][template.id] = template_info
+        print all_template
 
     return all_template.get(ret_format)
 
