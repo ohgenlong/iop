@@ -37,7 +37,7 @@ TEMPLATE_LOADERS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     #'django.core.context_processors.debug',
-    #'django.core.context_processors.i18n',
+    'django.core.context_processors.i18n',
     'django.core.context_processors.request',
     'website.context_processors.custom_proc',
     
@@ -76,11 +76,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'activelink',
+    'pagination',
     'inv',
     'website',
     'bus',
     'api',
     'idc',
+    
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,6 +93,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'pagination.middleware.PaginationMiddleware',
 )
 
 

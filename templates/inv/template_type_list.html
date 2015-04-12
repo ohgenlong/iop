@@ -3,6 +3,7 @@
 {% block page_name %}{{ page_name }}{% endblock %}
 {% block page_name_nav %}{{ page_name }}{% endblock %}
 {% block page-content %}
+
 	<section class="content">
                     <div class="row">
                         <div id="template_list"></div>
@@ -15,11 +16,13 @@
                             <div class="box box-solid">
                                 <div class="box-header">
                                     <h3 class="box-title">{{ page_name }} List</h3>
-                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#TemplateModal">Add {{ page_name }}</button>
+                                	
                                 </div><!-- /.box-header -->
-                                <div class="box-body table-responsive no-padding">
+                                
+                                <div class="box-body table-responsive">
                                     {% if all_template %}
-                                    <table class="table table-bordered table-striped">
+                                    <div class="dataTables_wrapper">
+                                    <table id="template_table" class="dataTable compact display cell-border order-column">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -58,6 +61,12 @@
                                         </tbody>
                                     </table>
                                     {% endif %}
+                                    <div class="box-footer">
+                                    <button class="btn btn-primary no-margin pull-right" data-toggle="modal" data-target="#TemplateModal">Add {{ page_name }}</button>
+                                    </div>
+                                    </div>
+                                    
+                                    
                                     <!-- Add Template -->
                                     <div class="modal fade" id="TemplateModal" tabindex="-1" role="dialog"  aria-labelledby="TemplateModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -94,6 +103,11 @@
                                         });
                                     </script>
                                     {% endif %}
+                                    <script type="text/javascript">
+								        $(document).ready(function() {
+								        	$('#template_table').DataTable();
+								        } );
+							      	</script>
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                         </div>

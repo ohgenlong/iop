@@ -9,11 +9,12 @@
                             <div class="box box-solid">
                                 <div class="box-header">
                                     <h3 class="box-title ">{{ page_name }} List</h3>
-                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#SupplierModal">Add New</button>
+                                    
                                 </div><!-- /.box-header -->
-                                <div class="box-body table-responsive no-padding">
+                                <div class="box-body table-responsive">
                                     {% if all_supplier %}
-                                    <table class="table table-bordered table-striped">
+                                    <div class="dataTables_wrapper">
+                                    <table id="supplier_table" class="dataTable compact display cell-border order-column">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -39,9 +40,14 @@
                                         {% endfor %}
                                         </tbody>
                                     </table>
+                                    <div class="box-footer">
+                                    <button class="btn btn-primary navbar-right" data-toggle="modal" data-target="#SupplierModal">Add {{ page_name }}</button>
+                                    </div>                                    
+                                    </div>
+                                    
                                     {% endif %}
                                     
-                                    
+
                                     <!-- Add Supplier -->
                                     <div class="modal fade" id="SupplierModal" tabindex="-1" role="dialog"  aria-labelledby="SupplierModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -78,6 +84,11 @@
                                         });
                                     </script>
                                     {% endif %}
+                                    <script type="text/javascript">
+								        $(document).ready(function() {
+								        	$('#supplier_table').DataTable();
+								        } );
+							      	</script>                                    
                                 </div><!-- /.box-body -->
                             </div><!-- /.box -->
                         </div>
